@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Portfolio</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7f9;
+            color: #263238;
+        }
+
+        
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+            background: #ffffff;
+            border-right: 1px solid #e1e5e8;
+            padding: 35px 25px;
+            z-index: 1000;
+        }
+
+        .profile {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .profile-img {
+           width: 120px;
+           height: 120px;
+           border-radius: 50%;
+           overflow: hidden;
+           margin: 0 auto 15px;
+}
+
+        .profile-img img {
+           width: 100%;
+           height: 100%;
+           object-fit: cover;
+           border-radius: 50%;
+        }
+
+        .profile h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .profile p {
+            font-size: 13px;
+            color: #7a858b;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #59656b;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            background: #397d82;
+            color: white;
+        }
+
+        .social {
+            margin-top: 35px;
+            text-align: center;
+        }
+
+        .social a {
+            text-decoration: none;
+            color: #53636a;
+            margin: 0 7px;
+            font-size: 14px;
+        }
+
+        /* MAIN CONTENT */
+        .main {
+            margin-left: 260px;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 80px 9%;
+            border-bottom: 1px solid #e5e8ea;
+        }
+
+        .label {
+            color: #397d82;
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            color: #263238;
+        }
+
+        h1 span {
+            color: #397d82;
+        }
+
+        h2 {
+            font-size: 38px;
+            margin-bottom: 25px;
+            color: #263238;
+        }
+
+        h3 {
+            margin-bottom: 12px;
+        }
+
+        p {
+            line-height: 1.8;
+            color: #657178;
+        }
+
+        
+        #home {
+            display: flex;
+            align-items: center;
+        }
+
+        .home-content {
+            max-width: 750px;
+        }
+
+        .home-content p {
+            max-width: 650px;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 22px;
+            background: #397d82;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .btn.secondary {
+            background: white;
+            color: #397d82;
+            border: 1px solid #397d82;
+        }
+
+        /* ABOUT */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-photo {
+           height: 280px;
+           overflow: hidden;
+           border-radius: 8px;
+        }
+
+        .about-photo img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+       
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .skill-group h3 {
+            color: #397d82;
+            margin-bottom: 18px;
+        }
+
+        .skill-group ul {
+            list-style: none;
+        }
+
+        .skill-group li {
+            margin: 12px 0;
+            color: #657178;
+        }
+
+        .skill-group li::before {
+            content: "●";
+            color: #397d82;
+            margin-right: 10px;
+        }
+
+       
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border: 1px solid #e1e5e8;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-image {
+            height: 190px;
+            background: #dce5e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #536b72;
+        }
+
+        .project-image {
+         height: 200px;
+         overflow: hidden;
+         border-radius: 10px;
+        }
+
+        .project-image img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+        }
+
+
+        .project-info {
+            padding: 22px;
+        }
+
+        .project-info h3 {
+            color: #263238;
+        }
+
+        .tags {
+            margin-top: 15px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #edf5f5;
+            color: #397d82;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            margin-right: 5px;
+        }
+
+        
+        .experience-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .timeline-item {
+            border-left: 3px solid #397d82;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item span {
+            font-size: 12px;
+            color: #397d82;
+        }
+
+       
+        .contact-box {
+            max-width: 650px;
+        }
+
+        .contact-list {
+            margin: 30px 0;
+        }
+
+        .contact-list p {
+            margin: 15px 0;
+        }
+
+        
+        @media (max-width: 900px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #e1e5e8;
+            }
+
+            .nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .about-grid,
+            .skills-grid,
+            .projects,
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 38px;
+            }
+
+            section {
+                padding: 60px 7%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    
+    <aside class="sidebar">
+
+        <div class="profile">
+
+            <div class="profile-img">
+           <img src="{{ asset('images/profile.jpg') }}" alt="Profile Photo">
+        </div>
+
+            <h2>Ivan</h2>
+
+            <p>BSIT Student</p>
+
+        </div>
+
+        <nav class="nav">
+
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#experience">Experience & Education</a>
+            <a href="#contact">Contact</a>
+
+        </nav>
+
+        <div class="social">
+            <a href="#">GitHub</a>
+            <a href="#">Facebook</a>
+            <a href="#">Email</a>
+        </div>
+
+    </aside>
+
+
+    
+    <main class="main">
+
+        <!-- HOME -->
+        <section id="home">
+
+            <div class="home-content">
+
+                
+
+                <h1>
+                    Hi, I'm <span>Globio, Ivan</span>
+                </h1>
+
+                <p>
+                    I am a BSIT student interested in web development,
+                    programming, and creating useful digital projects.
+                    I am currently learning Laravel, PHP, HTML, CSS,
+                    and JavaScript.
+                </p>
+
+                <div class="buttons">
+
+                    <a href="#projects" class="btn">
+                        View My Projects
+                    </a>
+
+                    <a href="#contact" class="btn secondary">
+                        Contact Me
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        
+        <section id="about">
+
+            
+
+            <h2>About Me</h2>
+
+            <div class="about-grid">
+
+                <div>
+
+                    <p>
+                         Hi! I'm Ivan Globio, a BSIT student passionate about technology and 
+                         web development. I enjoy creating websites, learning programming, and 
+                         exploring new technologies. My goal is to continuously improve my skills 
+                         and gain more experience in the IT field.
+                    </p>
+
+                    <br>
+
+                    <p>
+                        I enjoy learning new things and finding creative ways to use technology. 
+                        My goal is to keep improving my skills and create projects that are useful, 
+                        meaningful, and practical.
+                    </p>
+
+                </div>
+
+                <div class="about-photo">
+           <img src="{{ asset('images/profile.jpg') }}" 
+           alt="Ivan Profile Photo">
+</div>
+
+            </div>
+
+        </section>
+
+
+        
+        <section id="skills">
+
+            <h2>Skills</h2>
+
+            <div class="skills-grid">
+
+                <div class="skill-group">
+
+                    <h3>Web Development</h3>
+
+                    <ul>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>PHP</li>
+                        <li>Laravel</li>
+                        
+                    </ul>
+
+                </div>
+
+                <div class="skill-group">
+
+                    <h3>Networking</h3>
+
+                    <ul>
+                        <li>Cisco Packet Tracer</li>
+                        <li>IP Addressing</li>
+                        <li>Basic Network Configuration</li>
+                        <li>Network Troubleshooting</li>
+                    </ul>
+
+                </div>
+
+                <div class="skill-group">
+
+                    <h3>QGIS Mapping</h3> 
+
+                    <ul>
+                        <li>QGIS</li>
+                        <li>Map Visualization</li>
+                        <li>Basic QGIS Analysis</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        
+        <section id="projects">
+
+            <h2>My Projects</h2>
+
+            <div class="projects">
+
+                 <div class="project-card">
+
+            <div class="project-image">
+            <img src="{{ asset('images/task-project.jpg') }}" alt="Task Manager Project">
+            </div>
+
+           <div class="project-content">
+            <h3>Task Manager Project</h3>
+
+        <p>
+           Used to help the user organize their tasks,pending activities
+           and check their task progress.
+        </p>
+
+        <div class="tags">
+            <span class="tag">Vscode</span>
+            <span class="tag">Laravel</span>
+            <span class="tag">html</span>
+          </div>
+      </div>
+
+    </div>
+
+            <div class="project-card">
+
+            <div class="project-image">
+            <img src="{{ asset('images/cisco-project.jpg') }}" alt="Cisco Packet Tracer Project">
+            </div>
+
+
+        <div class="project-content">
+        <h3>Cisco Packet Tracer Project</h3>
+
+        <p>
+            A computer network project created using Cisco Packet Tracer,
+            focusing on network devices, IP addressing, and connectivity.
+        </p>
+
+        <div class="tags">
+            <span class="tag">Cisco Packet Tracer</span>
+            <span class="tag">Networking</span>
+            <span class="tag">IP Addressing</span>
+        </div>
+      </div>
+
+     </div>
+
+    </div>
+
+        </section>
+
+
+        
+        <section id="experience">
+
+            
+            <h2>Experience & Education</h2>
+
+            <div class="experience-grid">
+
+                <div>
+
+                    <h3>Experience</h3>
+
+                    <div class="timeline-item">
+
+                        <span>2026 — Present</span>
+
+                        <h3>Web Development Student</h3>
+
+                        <p>
+                            Learning Laravel, PHP, HTML, CSS, and
+                            basic web development.
+                        </p>
+
+                    </div>
+
+                    <div class="timeline-item">
+
+                        <span>2026</span>
+
+                        <h3>Student Projects</h3>
+
+                        <p>
+                            Created different school projects using
+                            web development technologies.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <h3>Education</h3>
+
+                    <div class="timeline-item">
+
+                        <span>Present</span>
+
+                        <h3>Bachelor of Science in Information Technology</h3>
+
+                        <p>
+                            Currently studying Information Technology
+                            and developing programming skills.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        
+        <section id="contact">
+
+            
+            <h2>CONTACT ME</h2>
+
+            <div class="contact-box">
+
+                <p>
+                    If you would like to contact me, you can reach me
+                    through the following:
+                </p>
+
+                <div class="contact-info">
+
+                    <p>📧 Email: ivanglobio103@gmail.com</p>
+
+                    <p>💻 GitHub: globioivan</p>
+
+                    <p>📱 Contact: 09155097786</p>
+
+                </div>
+
+                <a href="mailto:ivanglobio103@gmail.com" class="btn">
+                    Send a Message
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
